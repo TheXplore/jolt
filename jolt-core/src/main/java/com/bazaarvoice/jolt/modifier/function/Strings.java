@@ -118,6 +118,41 @@ public class Strings {
         }
     }
 
+    public static final class replace extends Function.ListFunction {
+
+        @Override
+        protected Optional<Object> applyList(List<Object> argList) {
+
+            // There is only one path that leads to success and many
+            //  ways for this to fail.   So using a do/while loop
+            //  to make the bailing easy.
+            do {
+
+                // if argList is null or not the right size; bail
+                if(argList == null || argList.size() != 3 ) {
+                    break;
+                }
+
+                if ( ! ( argList.get(0) instanceof String &&
+                        argList.get(1) instanceof String &&
+                        argList.get(2) instanceof String ) ) {
+                    break;
+                }
+
+                // If we get here, then all these casts should work.
+                String input = (String) argList.get(0);
+                String replacing = (String) argList.get(1);
+                String replacement = (String) argList.get(2);
+
+                return Optional.of(input.replaceAll(replacing, replacement));
+
+            } while( false );
+
+            // if we got here, then return an Optional.empty.
+            return Optional.empty();
+        }
+    }
+
     @SuppressWarnings( "unchecked" )
     public static final class join extends Function.ArgDrivenListFunction<String> {
 

@@ -3,7 +3,8 @@
         "string": "the QuIcK brOwn fox",
         "zeroIndex" : 0,
         "threeIndex" : 3,
-        "trimMe" : "  tuna "
+        "trimMe" : "  tuna ",
+        "replace": "Hi"
     },
 
     "spec": {
@@ -49,7 +50,8 @@
         "trim" :{
             "trimed" : "=trim(@(2,trimMe))"
         },
-        "trimMe" : "=trim"
+        "trimMe" : "=trim",
+        "replace": "=replace(@0, 'i', 'ey')"
     },
     "context": {
         "value" : "JumpeD OVeR THE laZy dog"
@@ -92,6 +94,7 @@
         },
         "trim" :{
             "trimed" : "tuna"
-        }
+        },
+        "replace": "Hey"
     }
 }
