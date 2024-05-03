@@ -1,0 +1,57 @@
+{
+  "input": [
+    [
+      {
+        "mapThis": "unmapped",
+        "testStay": "firstArray"
+      },
+      {
+        "mapThis": "unmapped",
+        "testStay": "still here firstArray"
+      }
+    ],
+    [
+      {
+        "mapThis": "unmapped",
+        "testStay": "secondaryArray"
+      },
+      {
+        "mapThis": "unmapped",
+        "testStay": "still here secondArray"
+      }
+    ]
+  ],
+
+  "spec": {
+    "*": {
+      "*" : {
+        "mapThis": {
+          "unmapped" : "mapped"
+        }
+      }
+    }
+  },
+
+  "expected": [
+    [
+      {
+        "mapThis": "mapped",
+        "testStay": "firstArray"
+      },
+      {
+        "mapThis": "mapped",
+        "testStay": "still here firstArray"
+      }
+    ],
+    [
+      {
+        "mapThis": "mapped",
+        "testStay": "secondaryArray"
+      },
+      {
+        "mapThis": "mapped",
+        "testStay": "still here secondArray"
+      }
+    ]
+  ]
+}

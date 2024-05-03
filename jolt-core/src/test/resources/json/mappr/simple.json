@@ -1,0 +1,24 @@
+{
+    "input": {
+        "status": "operational",
+        "authorId": "1234"
+    },
+
+    "spec": {
+        "status": {
+            "planned": "ENTWURF",
+            "ordered": "BESTELLT",
+            "stored": "LAGER",
+            "setup": "BUILD",
+            "operational": "IN_BETRIEB",
+            "maintenance": "NICHT_BEREIT",
+            "phaseOut": "STILLGELEGT",
+            "retired ": "ARCHIVIERT"
+        }
+    },
+
+    "expected": {
+        "status": "IN_BETRIEB",
+        "authorId": "1234"
+    }
+}

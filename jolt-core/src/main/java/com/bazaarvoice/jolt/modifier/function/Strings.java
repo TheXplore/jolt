@@ -129,22 +129,27 @@ public class Strings {
             do {
 
                 // if argList is null or not the right size; bail
-                if(argList == null || argList.size() != 3 ) {
+                if(argList == null || argList.size() % 2 != 1 ) {
                     break;
                 }
 
-                if ( ! ( argList.get(0) instanceof String &&
-                        argList.get(1) instanceof String &&
-                        argList.get(2) instanceof String ) ) {
-                    break;
+                for(Object arg : argList){
+                    if(!(arg instanceof String)){
+                        break;
+                    }
                 }
 
                 // If we get here, then all these casts should work.
                 String input = (String) argList.get(0);
-                String replacing = (String) argList.get(1);
-                String replacement = (String) argList.get(2);
 
-                return Optional.of(input.replaceAll(replacing, replacement));
+                for(int i = 1; i < argList.size(); i+=2){
+                    String replacing = (String) argList.get(i);
+                    String replacement = (String) argList.get(i + 1);
+
+                    if(input.contains(replacing)){
+                        return Optional.of(input.replace(replacing, replacement));
+                    }
+                }
 
             } while( false );
 

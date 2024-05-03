@@ -50,6 +50,7 @@ public class ChainrEntry {
         HashMap<String, String> temp = new HashMap<>();
         temp.put( "shift", Shiftr.class.getName() );
         temp.put( "default", Defaultr.class.getName() );
+        temp.put( "map", Modifier.Mappr.class.getName() );
         temp.put( "modify", Modifier.Overwritr.class.getName() );
         temp.put( "modify-overwrite", Modifier.Overwritr.class.getName() );
         temp.put( "modify-default", Modifier.Defaultr.class.getName() );

@@ -32,6 +32,7 @@ import com.bazaarvoice.jolt.modifier.spec.ModifierCompositeSpec;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Base Templatr transform that to behave differently based on provided opMode
@@ -121,6 +122,44 @@ public abstract class Modifier implements SpecDriven, ContextualTransform {
 
         rootSpec.apply( ROOT_KEY, Optional.of( input), walkedPath, null, contextWrapper );
         return input;
+    }
+
+    /**
+     * This variant of modifier creates the key/index is missing,
+     * and overwrites the value if present
+     */
+    @SuppressWarnings("unchecked")
+    public static final class Mappr extends Modifier {
+
+        public Mappr( Object spec ) {
+            super( modifySpec(spec), OpMode.OVERWRITR, STOCK_FUNCTIONS );
+        }
+
+        private static Object modifySpec(Object spec ){
+            if ( ! ( spec instanceof Map ) ) {
+                throw new SpecException("Mappr expected a spec of Map type, got " + spec.getClass().getSimpleName() );
+            }
+
+            replaceMappings((Map<String, Object>) spec);
+
+            return spec;
+        }
+
+        private static void replaceMappings(Map<String, Object> map){
+            for(Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getValue() instanceof Map) {
+                    Map<String, Object> valueMap = (Map<String, Object>) entry.getValue();
+
+                    if(valueMap.values().stream().allMatch(String.class::isInstance)){
+                        String replacements = valueMap.entrySet().stream().map(e -> "'" + e.getKey() + "', '" + e.getValue() + "'").collect(Collectors.joining(", "));
+                        entry.setValue("=replace(@0, " + replacements + ")");
+                    }
+                    else{
+                        replaceMappings(valueMap);
+                    }
+                }
+            }
+        }
     }
 
     /**
